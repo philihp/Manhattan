@@ -1,0 +1,14 @@
+<Context>
+	<Resource name="jdbc/ManhattanDB"
+		auth="Container"
+		type="javax.sql.DataSource"
+		description="Database Connection"
+		username="philihp"
+		password="philihp1"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/philihp?zeroDateTimeBehavior=convertToNull"
+		maxActive="10"
+		maxIdle="3" />
+  <!-- Disable Session Persistence -->
+  <Manager pathname="" />
+</Context>
