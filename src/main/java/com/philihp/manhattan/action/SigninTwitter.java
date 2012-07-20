@@ -13,6 +13,7 @@ import org.apache.struts.action.ActionMapping;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.FacebookApi;
 import org.scribe.builder.api.TwitterApi;
+import org.scribe.exceptions.OAuthException;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
@@ -46,46 +47,65 @@ public class SigninTwitter extends BaseAction {
 		
 		String verifier = request.getParameter("oauth_verifier");
 		
-		
-		if(verifier == null) {
-			Token requestToken = service.getRequestToken();
-			request.getSession().setAttribute(REQUEST_TOKEN, requestToken);
-			String authURL = service.getAuthorizationUrl(requestToken);
-			return new ActionForward(authURL, true);
+		Token accessToken = null;
+		if(user != null && user.getTwitter() != null && user.getTwitter().getAccess_token() != null) {
+			accessToken = new Token(user.getTwitter().getAccess_token(), user.getTwitter().getAccess_secret());
 		}
-		else {
-			Token requestToken = (Token)request.getSession().getAttribute(REQUEST_TOKEN);
-			if(requestToken == null) throw new Exception("OAuth Request Token is missing. This is likely because your browser's session wasn't setup yet, but it should be now. Try logging in again.");
-			
-			Token accessToken = service.getAccessToken(requestToken,new Verifier(verifier));
-			OAuthRequest authRequest = new OAuthRequest(Verb.GET, "http://api.twitter.com/1/account/verify_credentials.json");
-			service.signRequest(accessToken, authRequest);
-			
-			Response authResponse = authRequest.send();
-			
-			Gson gson = new Gson();
-			Twitter twitter = gson.fromJson(authResponse.getBody(), Twitter.class);
-			
-			EntityManager em = (EntityManager)request.getAttribute("em");
+		
+		if(accessToken == null) {
+			if(verifier == null) {
+				Token requestToken = service.getRequestToken();
+				request.getSession().setAttribute(REQUEST_TOKEN, requestToken);
+				String authURL = service.getAuthorizationUrl(requestToken);
+				return new ActionForward(authURL, true);
+			}
+			else {
+				Token requestToken = (Token)request.getSession().getAttribute(REQUEST_TOKEN);
+				if(requestToken == null) throw new Exception("OAuth Request Token is missing. This is likely because your browser's session wasn't setup yet, but it should be now. Try logging in again.");
+				
+				accessToken = service.getAccessToken(requestToken,new Verifier(verifier));
+			}
+		}
+		
+		OAuthRequest authRequest = new OAuthRequest(Verb.GET, "http://api.twitter.com/1/account/verify_credentials.json");
+		service.signRequest(accessToken, authRequest);
+		
+		Response authResponse = authRequest.send();
+		
+		Gson gson = new Gson();
+		Twitter twitter = gson.fromJson(authResponse.getBody(), Twitter.class);
+		
+		if(twitter.getError() != null) {
+			if(user.getTwitter().getAccess_token() != null) {
+				user.getTwitter().setAccess_token(null);
+				user.getTwitter().setAccess_secret(null);
+				return mapping.findForward("reauth");
+			}
+			else {
+				throw new OAuthException(twitter.getError());
+			}
+		}
+
+		EntityManager em = (EntityManager)request.getAttribute("em");
+		if(user == null) {
 			TypedQuery<User> query = em.createNamedQuery("findUserWithTwitter", User.class);
 			query.setParameter("twitter_id", twitter.getId());
 			List<User> results = query.getResultList();
 			if(results.size() == 0) {
 				user = new User();
-				user.setTwitter(twitter);
-				user.setName(twitter.getName());
-				twitter.setAccess_token(accessToken.getToken());
-				em.persist(user);
-				
-				request.getSession().setAttribute(BaseAction.USER, user);
 			}
 			else {
 				user = results.get(0);
-				user.getTwitter().setAccess_token(accessToken.getToken());
-				request.getSession().setAttribute(BaseAction.USER, user);
 			}
-			
-			return mapping.findForward("root");
 		}
+		twitter.setAccess_token(accessToken.getToken());
+		twitter.setAccess_secret(accessToken.getSecret());
+		user.setTwitter(twitter);
+		user.setName(twitter.getName());
+		em.persist(user);
+		
+		request.getSession().setAttribute(BaseAction.USER, user);
+		
+		return mapping.findForward("root");
 	}
 }

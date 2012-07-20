@@ -4,19 +4,17 @@
   "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 <struts-config>
 
-	<form-beans>
-	</form-beans>
-
-	<global-exceptions>
-	</global-exceptions>
-
 	<global-forwards>
 		<forward name="root" path="/" redirect="true"></forward>
 	</global-forwards>
  
 	<action-mappings>
-		<action path="/signin-facebook" type="com.philihp.manhattan.action.SigninFacebook" />
-		<action path="/signin-twitter" type="com.philihp.manhattan.action.SigninTwitter" />
+		<action path="/signin-facebook" type="com.philihp.manhattan.action.SigninFacebook">
+			<forward name="reauth" path="/signin-facebook.do" redirect="true" />
+		</action>
+		<action path="/signin-twitter" type="com.philihp.manhattan.action.SigninTwitter">
+			<forward name="reauth" path="/signin-twitter.do" redirect="true" />
+		</action>
 	</action-mappings>
 
 </struts-config>

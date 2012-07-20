@@ -32,22 +32,23 @@ abstract public class BaseAction extends Action {
 			throws Exception {
 		System.out.println("Action: "+this.getClass().getCanonicalName());
 
-		validateUser(request);
+		User user = reattachUser(request);
 			
-		return execute(mapping, actionForm, request, response, null);
+		return execute(mapping, actionForm, request, response, user);
 	}
 
 	abstract ActionForward execute(ActionMapping mapping, ActionForm actionForm,
 			HttpServletRequest request, HttpServletResponse response, User user)
 			throws Exception;
 
-	private void validateUser(HttpServletRequest request) {
+	private User reattachUser(HttpServletRequest request) {
 		User user = (User)request.getSession().getAttribute(USER);
 		if(user != null) {
 			EntityManager em = (EntityManager)request.getAttribute("em");
 			user = em.find(User.class, user.getUserId());
 			request.getSession().setAttribute(USER, user);
 		}
+		return user;
 		
 	}
 	
