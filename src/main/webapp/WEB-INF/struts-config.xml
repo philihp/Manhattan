@@ -11,9 +11,12 @@
 	</global-exceptions>
 
 	<global-forwards>
+		<forward name="root" path="/index.jsp"></forward>
 	</global-forwards>
-
+ 
 	<action-mappings>
+		<action path="/signin-facebook" type="com.philihp.manhattan.action.SigninFacebook" />
+		<action path="/signin-twitter" type="com.philihp.manhattan.action.SigninTwitter" />
 	</action-mappings>
 
 </struts-config>
