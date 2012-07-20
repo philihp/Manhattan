@@ -9,6 +9,8 @@
 		url="jdbc:mysql://localhost:3306/manhattan?zeroDateTimeBehavior=convertToNull"
 		maxActive="10"
 		maxIdle="3" />
-  <!-- Disable Session Persistence -->
+  <!-- Uncomment to disable Session Persistence -->
+  <!--
   <Manager pathname="" />
+  -->
 </Context>

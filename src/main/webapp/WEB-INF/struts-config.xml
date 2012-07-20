@@ -11,7 +11,7 @@
 	</global-exceptions>
 
 	<global-forwards>
-		<forward name="root" path="/index.jsp"></forward>
+		<forward name="root" path="/" redirect="true"></forward>
 	</global-forwards>
  
 	<action-mappings>

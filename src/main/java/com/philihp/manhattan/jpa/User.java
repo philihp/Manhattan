@@ -2,6 +2,8 @@ package com.philihp.manhattan.jpa;
 
 import static javax.persistence.AccessType.FIELD;
 
+import java.io.Serializable;
+
 import javax.persistence.Access;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -26,11 +28,11 @@ import static javax.persistence.FetchType.LAZY;
 	//@NamedQuery(name = "findUserWithFacebook", query = "SELECT u FROM User u WHERE u.facebook.id = :facebook_id"),
 	@NamedQuery(name = "findUserWithTwitter", query = "SELECT u FROM User u WHERE u.twitter.id = :twitter_id")
 })
-public class User extends BasicEntity {
+public class User extends BasicEntity implements Serializable {
 	
 	@Embeddable
 	@Access(FIELD)
-	public static class Twitter {
+	public static class Twitter implements Serializable {
 		
 		@Basic
 		@Column(name="twitter_id")
