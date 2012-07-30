@@ -7,12 +7,19 @@
 	<persistence-unit name="manhattan-pu" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<non-jta-data-source>java:comp/env/jdbc/ManhattanDB</non-jta-data-source>
+		<class>com.philihp.manhattan.jpa.BasicEntity</class>
 		<class>com.philihp.manhattan.jpa.Config</class>
+		<class>com.philihp.manhattan.jpa.Instance</class>
+		<class>com.philihp.manhattan.jpa.Instance$Player</class>
+		<class>com.philihp.manhattan.jpa.Move</class>
+		<class>com.philihp.manhattan.jpa.User</class>
+		<class>com.philihp.manhattan.jpa.User$Facebook</class>
+		<class>com.philihp.manhattan.jpa.User$Twitter</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 
 		<shared-cache-mode>NONE</shared-cache-mode>
 		<properties>
-			<property name="eclipselink.logging.level" value="WARNING" /> <!-- FINE turns on queries -->
+			<property name="eclipselink.logging.level" value="FINE" /> <!-- FINE turns on queries, WARNING turns them off -->
 			<property name="eclipselink.logging.timestamp" value="false" />
 			<property name="eclipselink.logging.session" value="false" />
 			<property name="eclipselink.logging.thread" value="false" />

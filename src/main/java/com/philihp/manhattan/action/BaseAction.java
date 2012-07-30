@@ -24,7 +24,7 @@ import com.philihp.manhattan.jpa.User;
 
 abstract public class BaseAction extends Action {
 	
-	public static String USER = "USER";
+	public static String USER = "user";
 	
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm actionForm,

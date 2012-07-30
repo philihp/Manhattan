@@ -4,17 +4,58 @@
   "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 <struts-config>
 
+	<form-beans>
+		<form-bean name="createInstanceForm" type="com.philihp.manhattan.form.CreateInstanceForm" />
+		<form-bean name="instanceForm" type="com.philihp.manhattan.form.InstanceForm" />
+		<form-bean name="makeMoveForm" type="com.philihp.manhattan.form.MakeMoveForm" />
+	</form-beans>
+
 	<global-forwards>
-		<forward name="root" path="/" redirect="true"></forward>
+		<forward name="root" path="/" redirect="true" />
+		<forward name="main" path="/main.do" redirect="false" /> 
 	</global-forwards>
- 
+
 	<action-mappings>
+		<action path="/main" type="com.philihp.manhattan.action.Main">
+			<forward name="main" path="/main.jsp" />
+		</action>
+	
 		<action path="/signin-facebook" type="com.philihp.manhattan.action.SigninFacebook">
 			<forward name="reauth" path="/signin-facebook.do" redirect="true" />
 		</action>
 		<action path="/signin-twitter" type="com.philihp.manhattan.action.SigninTwitter">
 			<forward name="reauth" path="/signin-twitter.do" redirect="true" />
 		</action>
+		<action path="/signin-google" type="com.philihp.manhattan.action.SigninGoogle">
+			<forward name="reauth" path="/signin-google.do" redirect="true" />
+		</action>
+
+		<action path="/create-instance" type="com.philihp.manhattan.action.CreateInstance"
+		 		name="createInstanceForm">
+			<forward name="form" path="/createInstance.jsp" />
+		</action>
+		
+		<action path="/join-instance" type="com.philihp.manhattan.action.JoinInstance" name="instanceForm" scope="request" />
+		<action path="/leave-instance" type="com.philihp.manhattan.action.LeaveInstance" name="instanceForm" scope="request" />
+		<action path="/start-instance" type="com.philihp.manhattan.action.StartInstance" name="instanceForm" scope="request">
+			<forward name="view" path="/view-instance.do" redirect="true" />
+			<forward name="error" path="/error.jsp" redirect="false" />
+		</action>
+		
+		<action path="/view-instance" type="com.philihp.manhattan.action.ViewInstance" name="instanceForm" scope="request">
+			<forward name="recruiting" path="/viewInstanceRecruiting.jsp" />
+			<forward name="in-progress" path="/viewInstanceInProgress.jsp" />
+			<forward name="replacing" path="/viewInstanceReplacing.jsp" />
+			<forward name="finished" path="/viewInstanceFinished.jsp" />
+		</action>
+		
+		<action path="/make-move" type="com.philihp.manhattan.action.MakeMove" name="makeMoveForm" scope="request">
+			<forward name="confirm" path="/viewProposedMove.jsp" /> 
+		</action>
+		<action path="/commit-move" type="com.philihp.manhattan.action.CommitMove" name="makeMoveForm" scope="request">
+			<forward name="view" path="/view-instance.do" redirect="true" />
+		</action>
+
 	</action-mappings>
 
 </struts-config>
