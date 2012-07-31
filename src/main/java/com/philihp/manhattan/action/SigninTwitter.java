@@ -28,7 +28,7 @@ import com.philihp.manhattan.jpa.User.Twitter;
 
 public class SigninTwitter extends BaseAction {
 	
-	private static final String REQUEST_TOKEN = "REQUEST_TOKEN";
+	private static final String REQUEST_TOKEN = "TWITTER_REQUEST_TOKEN";
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response, User user)
