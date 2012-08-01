@@ -68,7 +68,17 @@
 								<html:option value="">(random)</html:option>
 								<html:optionsCollection name="instance" property="availableColors"/>
 							</html:select>
-							<html:submit>Join</html:submit>
+							<c:if test="${empty user}">
+
+								<html:submit disabled="true">Join</html:submit>
+
+							</c:if>
+
+							<c:if test="${not empty user}">
+
+								<html:submit>Join</html:submit>
+
+							</c:if>
 						</html:form>
 					</td>
 				</tr>

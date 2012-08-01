@@ -12,6 +12,23 @@
 .building {
 	height: 160px;
 	width: 100px;
+	-webkit-transition-duration: 0.2s;
+
+	-moz-transition-duration: 0.2s;
+
+	-o-transition-duration: 0.2s;
+
+	transition-duration: 0.2s;
+
+	-webkit-transition-property: -webkit-transform;
+
+	-webkit-transform:rotate(-2deg);
+
+}
+
+.building:hover {
+
+	-webkit-transform:rotate(2deg);
 }
 		</style>
 	</head>
@@ -44,9 +61,18 @@
 	
 	<hr />
 	
-	<c:forEach items="${board.buildingDeckIterator}" var="building">
-		<img src="images/${building}.png" class="building" />
-	</c:forEach>
+
+	<img src="images/mainboard.jpg" />
+
+	<img src="images/board-red.jpg" />
+
+	<img src="images/board-yellow.jpg" />
+
+	<img src="images/board-green.jpg" />
+
+	<img src="images/board-blue.jpg" />
+
+	<img src="images/board-purple.jpg" />
 	
 	<hr />
 	
