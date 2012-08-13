@@ -8,12 +8,13 @@
 <html>
 	<head>
 		<title>Manhattan Project Online</title>
+		<link rel="stylesheet" href="css/manhattan.css" />
 	</head>
 	<body>
 	
 	<h1>View Recruiting Instance</h1>
 	
-	<table border="1" cellspacing="0" cellpadding="3">
+	<table border="1">
 	<c:forEach items="${instance.players}" var="player">
 		<c:if test="${not empty player.user}">
 			<tr>

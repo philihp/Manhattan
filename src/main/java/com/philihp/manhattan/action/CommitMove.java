@@ -14,7 +14,7 @@ import com.philihp.manhattan.form.CreateInstanceForm;
 import com.philihp.manhattan.form.InstanceForm;
 import com.philihp.manhattan.form.MakeMoveForm;
 import com.philihp.manhattan.jpa.Instance;
-import com.philihp.manhattan.jpa.Move;
+import com.philihp.manhattan.jpa.Transition;
 import com.philihp.manhattan.jpa.User;
 import com.philihp.manhattan.model.InstanceStatus;
 import com.philihp.manhattan.model.PlayerColor;
@@ -31,9 +31,8 @@ public class CommitMove extends BaseAction {
 		
 		Instance instance = em.find(Instance.class, form.getInstanceId());
 
-		Move newMove = new Move();
+		Transition newMove = new Transition();
 		newMove.setInstance(instance);
-		newMove.setMoveNumber(instance.getMoves().size());
 		newMove.setCommand(form.getCommand());
 		
 		em.persist(newMove);

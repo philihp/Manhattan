@@ -21,14 +21,14 @@ import javax.persistence.Transient;
 
 import static javax.persistence.FetchType.LAZY;
 
-@Entity(name = "Move")
-@Table(name = "move")
+@Entity(name = "Transition")
+@Table(name = "transition")
 @Access(FIELD)
-public class Move extends BasicEntity implements Serializable {
+public class Transition extends BasicEntity implements Serializable {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "move_id")
+	@Column(name = "transition_id")
 	private int moveId;
 
 	@Column(name = "command", nullable = false)
@@ -36,9 +36,6 @@ public class Move extends BasicEntity implements Serializable {
 	
 	@Column(name = "long_move")
 	private boolean longMove;
-	
-	@Column(name = "move_number", nullable = false)
-	private int moveNumber;
 	
 	@ManyToOne(targetEntity = Instance.class)
 	@JoinColumn(name = "instance_id", referencedColumnName = "instance_id")
@@ -88,12 +85,4 @@ public class Move extends BasicEntity implements Serializable {
 		this.maker = maker;
 	}
 
-	public int getMoveNumber() {
-		return moveNumber;
-	}
-
-	public void setMoveNumber(int moveNumber) {
-		this.moveNumber = moveNumber;
-	}
-	
 }

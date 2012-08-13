@@ -8,12 +8,13 @@
 <html>
 	<head>
 		<title>Manhattan Project Online</title>
+		<link rel="stylesheet" href="css/manhattan.css" />
 	</head>
 	<body>
 	
 	<h1>View Proposed Move</h1>
 	
-	<table border="1" cellspacing="0" cellpadding="3">
+	<table border="1">
 	<c:forEach items="${instance.players}" var="player">
 		<c:if test="${not empty player.user}">
 			<tr>
@@ -26,8 +27,8 @@
 	
 	Moves:
 	<ul>
-	<c:forEach items="${instance.moves}" var="move">
-		<li>${move.command}</li>
+	<c:forEach items="${instance.transitions}" var="transition">
+		<li>${transition.command}</li>
 	</c:forEach>
 	</ul>
 	

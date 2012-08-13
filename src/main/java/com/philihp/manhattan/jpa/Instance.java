@@ -128,9 +128,9 @@ public class Instance extends BasicEntity implements Serializable {
 	@AssociationOverride(name = "user", joinColumns = @JoinColumn(name = "player5_user_id", referencedColumnName = "user_id"))
 	private Player player5;
 
-	@OneToMany(targetEntity = Move.class, mappedBy = "instance")
-	@OrderColumn(name = "move_number")
-	private List<Move> moves;
+	@OneToMany(targetEntity = Transition.class, mappedBy = "instance")
+	@OrderBy
+	private List<Transition> transitions;
 
 	public Instance() {
 		player1 = new Player();
@@ -236,12 +236,12 @@ public class Instance extends BasicEntity implements Serializable {
 		this.player5 = player5;
 	}
 
-	public List<Move> getMoves() {
-		return moves;
+	public List<Transition> getTransitions() {
+		return transitions;
 	}
 
-	public void setMoves(List<Move> moves) {
-		this.moves = moves;
+	public void setMoves(List<Transition> moves) {
+		this.transitions = moves;
 	}
 
 	@Transient

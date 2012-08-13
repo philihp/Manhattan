@@ -11,7 +11,7 @@
 		<class>com.philihp.manhattan.jpa.Config</class>
 		<class>com.philihp.manhattan.jpa.Instance</class>
 		<class>com.philihp.manhattan.jpa.Instance$Player</class>
-		<class>com.philihp.manhattan.jpa.Move</class>
+		<class>com.philihp.manhattan.jpa.Transition</class>
 		<class>com.philihp.manhattan.jpa.User</class>
 		<class>com.philihp.manhattan.jpa.User$Facebook</class>
 		<class>com.philihp.manhattan.jpa.User$Twitter</class>
