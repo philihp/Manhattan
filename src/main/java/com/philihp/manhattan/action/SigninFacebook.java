@@ -23,7 +23,6 @@ import org.scribe.oauth.OAuthService;
 import com.google.gson.Gson;
 import com.philihp.manhattan.jpa.User;
 import com.philihp.manhattan.jpa.User.Facebook;
-import com.philihp.manhattan.jpa.User.Twitter;
 
 public class SigninFacebook extends BaseAction {
 

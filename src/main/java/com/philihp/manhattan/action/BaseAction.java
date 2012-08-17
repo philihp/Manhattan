@@ -1,24 +1,14 @@
 package com.philihp.manhattan.action;
 
-import java.util.Arrays;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.philihp.manhattan.jpa.User;
 
 

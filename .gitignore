@@ -9,3 +9,4 @@
 .settings
 
 target
+src/main/resources/com/philihp/manhattan/jpa/*_.java

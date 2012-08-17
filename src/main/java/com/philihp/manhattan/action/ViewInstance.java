@@ -1,7 +1,5 @@
 package com.philihp.manhattan.action;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -5,7 +5,6 @@ import static javax.persistence.AccessType.FIELD;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Access;
@@ -19,31 +18,25 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.Basic;
-import javax.persistence.JoinColumn;
 import javax.persistence.Transient;
 
 import com.philihp.manhattan.model.InstanceStatus;
 import com.philihp.manhattan.model.PlayerColor;
 
-import static javax.persistence.FetchType.LAZY;
-import static javax.persistence.CascadeType.ALL;
-import javax.persistence.OrderBy;
-import javax.persistence.OrderColumn;
-
 @Entity(name = "Instance")
 @Table(name = "instance")
 @Access(FIELD)
 @NamedQueries({
-		@NamedQuery(name = "findMyInstances", query = "SELECT i FROM Instance i WHERE i.player1.user = :user OR i.player2.user = :user OR i.player3.user = :user OR i.player4.user = :user OR i.player5.user = :user AND i.status != com.philihp.manhattan.model.InstanceStatus.FINISHED"),
-		@NamedQuery(name = "findRecruitingInstances", query = "SELECT i FROM Instance i WHERE i.status = com.philihp.manhattan.model.InstanceStatus.RECRUITING AND (i.player1.user != :user OR i.player1.user IS NULL) AND (i.player2.user != :user OR i.player2.user IS NULL) AND (i.player3.user != :user OR i.player3.user IS NULL) AND (i.player4.user != :user OR i.player4.user IS NULL) AND (i.player5.user != :user OR i.player5.user IS NULL)"),
-		@NamedQuery(name = "findReplacingInstances", query = "SELECT i FROM Instance i WHERE i.status = com.philihp.manhattan.model.InstanceStatus.REPLACING AND (i.player1.user != :user OR i.player1.user IS NULL) AND (i.player2.user != :user OR i.player2.user IS NULL) AND (i.player3.user != :user OR i.player3.user IS NULL) AND (i.player4.user != :user OR i.player4.user IS NULL) AND (i.player5.user != :user OR i.player5.user IS NULL)"),
+		@NamedQuery(name = "findMyInstances", query = "SELECT i FROM Instance i WHERE i.player1.user = :user OR i.player2.user = :user OR i.player3.user = :user OR i.player4.user = :user OR i.player5.user = :user AND i.status <> com.philihp.manhattan.model.InstanceStatus.FINISHED"),
+		@NamedQuery(name = "findRecruitingInstances", query = "SELECT i FROM Instance i WHERE i.status = com.philihp.manhattan.model.InstanceStatus.RECRUITING AND (i.player1.user <> :user OR i.player1.user IS NULL) AND (i.player2.user <> :user OR i.player2.user IS NULL) AND (i.player3.user <> :user OR i.player3.user IS NULL) AND (i.player4.user <> :user OR i.player4.user IS NULL) AND (i.player5.user <> :user OR i.player5.user IS NULL)"),
+		@NamedQuery(name = "findReplacingInstances", query = "SELECT i FROM Instance i WHERE i.status = com.philihp.manhattan.model.InstanceStatus.REPLACING AND (i.player1.user <> :user OR i.player1.user IS NULL) AND (i.player2.user <> :user OR i.player2.user IS NULL) AND (i.player3.user <> :user OR i.player3.user IS NULL) AND (i.player4.user <> :user OR i.player4.user IS NULL) AND (i.player5.user <> :user OR i.player5.user IS NULL)"),
 		@NamedQuery(name = "findInProgressInstances", query = "SELECT i FROM Instance i WHERE i.status = com.philihp.manhattan.model.InstanceStatus.IN_PROGRESS"),
 		@NamedQuery(name = "findFinishedInstances", query = "SELECT i FROM Instance i WHERE i.status = com.philihp.manhattan.model.InstanceStatus.FINISHED") })
 public class Instance extends BasicEntity implements Serializable {

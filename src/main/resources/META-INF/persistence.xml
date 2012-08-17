@@ -19,18 +19,17 @@
 
 		<shared-cache-mode>NONE</shared-cache-mode>
 		<properties>
+			
 			<property name="eclipselink.logging.level" value="FINE" /> <!-- FINE turns on queries, WARNING turns them off -->
 			<property name="eclipselink.logging.timestamp" value="false" />
 			<property name="eclipselink.logging.session" value="false" />
 			<property name="eclipselink.logging.thread" value="false" />
+			<property name="eclipselink.query-results-cache" value="false" />
 			
 			<property name="eclipselink.target-database" value="MySQL" />
 			
-			<!-- this is a workaround for Tomcat, otherwise Eclipselink can't find the JNDI datasource -->
-			<property name="eclipselink.session.customizer" value="com.philihp.manhattan.util.JPAEclipseLinkSessionCustomizer" />
-
-			<!-- meh caching. synchronization issues. headaches. -->
-			<property name="eclipselink.query-results-cache" value="false" />
+			<property name="eclipselink.target-server" value="JBoss"/>
+			<property name="eclipselink.weaving" value="static"/>
 
 			<property name="eclipselink.ddl-generation" value="none" />
 			<!-- BE VERY CAREFUL ABOUT COMMITTING WITH DROP -->

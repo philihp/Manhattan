@@ -5,9 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
-import com.philihp.manhattan.model.PlayerColor;
-import com.philihp.manhattan.model.TimeUnits;
-
 public class InstanceForm extends ActionForm {
 	private int instanceId;
 	private String color;
