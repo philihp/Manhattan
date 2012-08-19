@@ -12,7 +12,6 @@ abstract class Deck<T> implements Iterable<T> {
 		return deck.remove(deck.size()-1);
 	}
 
-	@Override
 	public Iterator<T> iterator() {
 		return deck.iterator();
 	}
