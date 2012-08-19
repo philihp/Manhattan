@@ -13,7 +13,7 @@
 	
 	<h1>View Proposed Move</h1>
 	
-	<table border="1" cellspacing="0" cellpadding="3">
+	<table>
 	<c:forEach items="${instance.players}" var="player">
 		<c:if test="${not empty player.user}">
 			<tr>

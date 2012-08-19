@@ -13,17 +13,11 @@
 	height: 160px;
 	width: 100px;
 	-webkit-transition-duration: 0.2s;
-
 	-moz-transition-duration: 0.2s;
-
 	-o-transition-duration: 0.2s;
-
 	transition-duration: 0.2s;
-
 	-webkit-transition-property: -webkit-transform;
-
 	-webkit-transform:rotate(-2deg);
-
 }
 
 .building:hover {
@@ -36,7 +30,7 @@
 	
 	<h1>View in progress Instance</h1>
 	
-	<table border="1" cellspacing="0" cellpadding="3">
+	<table>
 	<c:forEach items="${instance.players}" var="player">
 		<c:if test="${not empty player.user}">
 			<tr>

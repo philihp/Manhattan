@@ -29,7 +29,7 @@
 		
 		<section>
 			Your Instances:
-			<table border="1" cellspacing="0" cellpadding="3">
+			<table>
 				<tr>
 					<th>Status</th>
 					<th>Name</th>
@@ -47,7 +47,7 @@
 		
 		<section>
 			Instances recruiting<br />
-			<table border="1" cellspacing="0" cellpadding="3">
+			<table>
 				<tr>
 					<th>Name</th>
 					<th>Min</th>
