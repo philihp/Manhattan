@@ -8,21 +8,25 @@
 <html>
 	<head>
 		<title>Manhattan Project Online</title>
+		<link rel="stylesheet" href="css/manhattan.css" />
 		<style>
 .building {
 	height: 160px;
 	width: 100px;
+	/*
 	-webkit-transition-duration: 0.2s;
 	-moz-transition-duration: 0.2s;
 	-o-transition-duration: 0.2s;
 	transition-duration: 0.2s;
 	-webkit-transition-property: -webkit-transform;
 	-webkit-transform:rotate(-2deg);
+	*/
 }
 
 .building:hover {
-
+	/*
 	-webkit-transform:rotate(2deg);
+	*/
 }
 		</style>
 	</head>
@@ -30,7 +34,7 @@
 	
 	<h1>View in progress Instance</h1>
 	
-	<table>
+	<table border="1">
 	<c:forEach items="${instance.players}" var="player">
 		<c:if test="${not empty player.user}">
 			<tr>
@@ -55,25 +59,30 @@
 	
 	<hr />
 	
-
 	<img src="images/mainboard.jpg" />
 
-	<img src="images/board-red.jpg" />
-
-	<img src="images/board-yellow.jpg" />
-
-	<img src="images/board-green.jpg" />
-
-	<img src="images/board-blue.jpg" />
-
-	<img src="images/board-purple.jpg" />
+	<c:forEach items="${board.playerBoards}" var="playerBoard">
 	
+		Workers:
+		<c:forEach items="${playerBoard.laborers}" var="laborer">
+		  ${laborer}
+		</c:forEach>		
+		<c:forEach items="${playerBoard.engineers}" var="engineer">
+		  ${engineer}
+		</c:forEach>		
+		<c:forEach items="${playerBoard.scientists}" var="scientist">
+		  ${scientist}
+		</c:forEach>
+	
+		Board:<img src="images/board-${playerBoard.color}.jpg" />
+	
+	</c:forEach>
 	<hr />
 	
 	Moves:
 	<ul>
-	<c:forEach items="${instance.moves}" var="move">
-		<li>${move.command}</li>
+	<c:forEach items="${instance.transitions}" var="transition">
+		<li>${transition.command}</li>
 	</c:forEach>
 	</ul>
 	

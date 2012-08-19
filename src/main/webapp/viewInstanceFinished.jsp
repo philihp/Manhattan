@@ -8,6 +8,7 @@
 <html>
 	<head>
 		<title>Manhattan Project Online</title>
+		<link rel="stylesheet" href="css/manhattan.css" />
 	</head>
 	<body>
 	

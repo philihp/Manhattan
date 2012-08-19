@@ -1,6 +1,6 @@
 package com.philihp.manhattan.model.building;
 
-import com.philihp.manhattan.model.Board;
+import com.philihp.manhattan.model.MainBoard;
 
 public class Reactor1 extends Building {
 	
@@ -9,7 +9,7 @@ public class Reactor1 extends Building {
 	}
 
 	@Override
-	public void use(Board board, String option) {
+	public void use(MainBoard board, String option) {
 		
 	}
 	

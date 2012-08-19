@@ -8,6 +8,7 @@
 		<form-bean name="createInstanceForm" type="com.philihp.manhattan.form.CreateInstanceForm" />
 		<form-bean name="instanceForm" type="com.philihp.manhattan.form.InstanceForm" />
 		<form-bean name="makeMoveForm" type="com.philihp.manhattan.form.MakeMoveForm" />
+		<form-bean name="impersonateForm" type="com.philihp.manhattan.form.ImpersonateForm" />
 	</form-beans>
 
 	<global-forwards>
@@ -29,6 +30,7 @@
 		<action path="/signin-google" type="com.philihp.manhattan.action.SigninGoogle">
 			<forward name="reauth" path="/signin-google.do" redirect="true" />
 		</action>
+		<action path="/impersonate" type="com.philihp.manhattan.action.Impersonate" name="impersonateForm" />
 
 		<action path="/create-instance" type="com.philihp.manhattan.action.CreateInstance"
 		 		name="createInstanceForm">

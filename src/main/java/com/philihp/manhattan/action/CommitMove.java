@@ -1,7 +1,5 @@
 package com.philihp.manhattan.action;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,16 +8,10 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.philihp.manhattan.form.CreateInstanceForm;
-import com.philihp.manhattan.form.InstanceForm;
 import com.philihp.manhattan.form.MakeMoveForm;
 import com.philihp.manhattan.jpa.Instance;
-import com.philihp.manhattan.jpa.Move;
+import com.philihp.manhattan.jpa.Transition;
 import com.philihp.manhattan.jpa.User;
-import com.philihp.manhattan.model.InstanceStatus;
-import com.philihp.manhattan.model.PlayerColor;
-import com.philihp.manhattan.model.PlayerCount;
-import com.philihp.manhattan.model.TimeUnits;
 
 public class CommitMove extends BaseAction {
 
@@ -31,9 +23,8 @@ public class CommitMove extends BaseAction {
 		
 		Instance instance = em.find(Instance.class, form.getInstanceId());
 
-		Move newMove = new Move();
+		Transition newMove = new Transition();
 		newMove.setInstance(instance);
-		newMove.setMoveNumber(instance.getMoves().size());
 		newMove.setCommand(form.getCommand());
 		
 		em.persist(newMove);

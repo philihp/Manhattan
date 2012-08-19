@@ -11,7 +11,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.scribe.builder.ServiceBuilder;
-import org.scribe.builder.api.FacebookApi;
 import org.scribe.builder.api.GoogleApi;
 import org.scribe.exceptions.OAuthException;
 import org.scribe.model.OAuthRequest;
@@ -23,7 +22,6 @@ import org.scribe.oauth.OAuthService;
 
 import com.google.gson.Gson;
 import com.philihp.manhattan.jpa.User;
-import com.philihp.manhattan.jpa.User.Facebook;
 import com.philihp.manhattan.jpa.User.Twitter;
 
 public class SigninGoogle extends BaseAction {

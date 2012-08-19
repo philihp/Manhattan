@@ -29,15 +29,17 @@
 		
 		<section>
 			Your Instances:
-			<table>
+			<table border="1">
 				<tr>
 					<th>Status</th>
 					<th>Name</th>
+					<th></th>
 				</tr>
 				<logic:iterate id="instance" name="myInstances">
 				<tr>
 					<td>${instance.status}</td>
-					<td><html:link action="/view-instance.do" paramId="instanceId" paramName="instance" paramProperty="instanceId">${instance.name}</html:link></td>
+					<td>${instance.name}</td>
+					<td><html:link action="/view-instance.do" paramId="instanceId" paramName="instance" paramProperty="instanceId">View</html:link></td>
 				</tr>
 				</logic:iterate>
 			</table>
@@ -47,7 +49,7 @@
 		
 		<section>
 			Instances recruiting<br />
-			<table>
+			<table border="1">
 				<tr>
 					<th>Name</th>
 					<th>Min</th>
@@ -105,6 +107,14 @@
 		Finished instances
 		</section>
 			
+			
+		<section>
+		Impersonate
+		<html:form action="/impersonate.do" method="POST">
+			User ID: <html:text property="userId" />
+			<html:submit>Impersonate</html:submit>
+		</html:form>
+		</section>
 	
 	</body>
 </html>

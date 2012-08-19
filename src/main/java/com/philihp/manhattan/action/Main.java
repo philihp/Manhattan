@@ -12,13 +12,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.philihp.manhattan.form.CreateInstanceForm;
 import com.philihp.manhattan.jpa.Instance;
 import com.philihp.manhattan.jpa.User;
-import com.philihp.manhattan.model.InstanceStatus;
-import com.philihp.manhattan.model.PlayerColor;
-import com.philihp.manhattan.model.PlayerCount;
-import com.philihp.manhattan.model.TimeUnits;
 
 public class Main extends BaseAction {
 

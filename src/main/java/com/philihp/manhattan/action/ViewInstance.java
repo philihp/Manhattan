@@ -10,8 +10,10 @@ import org.apache.struts.action.ActionMapping;
 
 import com.philihp.manhattan.form.InstanceForm;
 import com.philihp.manhattan.jpa.Instance;
+import com.philihp.manhattan.jpa.Transition;
 import com.philihp.manhattan.jpa.User;
-import com.philihp.manhattan.model.Board;
+import com.philihp.manhattan.model.MainBoard;
+import com.philihp.manhattan.model.Move;
 import com.philihp.manhattan.model.PlayerColor;
 
 public class ViewInstance extends BaseAction {
@@ -29,8 +31,10 @@ public class ViewInstance extends BaseAction {
 		
 		
 		
-		Board board = new Board(instance);
-		
+		MainBoard board = new MainBoard(instance);
+		for(Transition transition: instance.getTransitions()) {
+			board.applyTurn(Move.parse(transition.getCommand()));
+		}
 		
 		
 		
