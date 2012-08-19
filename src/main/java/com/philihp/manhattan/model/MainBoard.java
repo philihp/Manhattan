@@ -5,8 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import com.philihp.manhattan.jpa.Instance;
-import com.philihp.manhattan.jpa.Instance.Player;
+import com.philihp.manhattan.domain.Instance;
 import com.philihp.manhattan.model.building.Building;
 import com.philihp.manhattan.model.building.BuildingDeck;
 
@@ -27,14 +26,14 @@ public class MainBoard {
 		for (int i = 0; i < 7; i++) {
 			buildingProposal.add(buildingDeck.draw());
 		}
-		implosionCounters = resetImplosionCounters(instance.getPlayerCount());
+//		implosionCounters = resetImplosionCounters(instance.getPlayerCount());
 
 		playerBoards = new ArrayList<PlayerBoard>();
-		for (Player player : instance.getPlayers()) {
-			if (player.getUser() == null)
-				continue;
-			playerBoards.add(new PlayerBoard(this, player.getColor()));
-		}
+//		for (Player player : instance.getPlayers()) {
+//			if (player.getUser() == null)
+//				continue;
+//			playerBoards.add(new PlayerBoard(this, player.getColor()));
+//		}
 	}
 
 	public void applyTurn(List<Move> moves) {
@@ -83,26 +82,26 @@ public class MainBoard {
 		return playerBoards;
 	}
 
-	private List<Integer> resetImplosionCounters(int players) {
-		ArrayList<Integer> counters = new ArrayList<Integer>();
-		switch (players) {
-		case 5:
-			counters.add(8);
-		case 4:
-			counters.add(2);
-			counters.add(4);
-		case 2:
-			counters.add(6);
-			break;
-		case 3:
-			counters.add(4);
-			counters.add(8);
-			break;
-		default:
-			return counters;
-		}
-		counters.add(0);
-		return counters;
-	}
+//	private List<Integer> resetImplosionCounters(int players) {
+//		ArrayList<Integer> counters = new ArrayList<Integer>();
+//		switch (players) {
+//		case 5:
+//			counters.add(8);
+//		case 4:
+//			counters.add(2);
+//			counters.add(4);
+//		case 2:
+//			counters.add(6);
+//			break;
+//		case 3:
+//			counters.add(4);
+//			counters.add(8);
+//			break;
+//		default:
+//			return counters;
+//		}
+//		counters.add(0);
+//		return counters;
+//	}
 
 }

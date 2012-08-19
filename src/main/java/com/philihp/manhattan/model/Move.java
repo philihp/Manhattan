@@ -17,6 +17,7 @@ public class Move {
 	}
 
 	private Move(String command) {
+		this.command = command;
 		Section section = Section.WORKERS;
 		StringBuilder sectionString = new StringBuilder();
 		for (int i = 0; i <= command.length(); i++) {
@@ -67,6 +68,10 @@ public class Move {
 			moves.add(new Move(tok.nextToken()));
 		}
 		return moves;
+	}
+	
+	public String getCommand() {
+		return command;
 	}
 
 	public String toString() {
