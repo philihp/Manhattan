@@ -1,9 +1,7 @@
-package org.jboss.tools.example.springmvc.mvc;
+package com.philihp.manhattan.mvc;
 
  import javax.validation.Valid;
 
-import org.jboss.tools.example.springmvc.domain.Member;
-import org.jboss.tools.example.springmvc.repo.MemberDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,30 +10,33 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.philihp.manhattan.domain.User;
+import com.philihp.manhattan.repo.UserDao;
+
 @Controller
 @RequestMapping(value="/")
-public class MemberController
+public class UserController
 {
     @Autowired
-    private MemberDao memberDao;
+    private UserDao userDao;
 
     @RequestMapping(method=RequestMethod.GET)
     public String displaySortedMembers(Model model)
     {
-        model.addAttribute("newMember", new Member());
-        model.addAttribute("members", memberDao.findAllOrderedByName());
+        model.addAttribute("newMember", new User());
+        model.addAttribute("members", userDao.findAllOrderedByName());
         return "index";
     }
 
     @RequestMapping(method=RequestMethod.POST)
-    public String registerNewMember(@Valid @ModelAttribute("newMember") Member newMember, BindingResult result, Model model)
+    public String registerNewMember(@Valid @ModelAttribute("newMember") User newUser, BindingResult result, Model model)
     {
         if (!result.hasErrors()) {
-            memberDao.register(newMember);
+            userDao.register(newUser);
             return "redirect:/";
         }
         else {
-            model.addAttribute("members", memberDao.findAllOrderedByName());
+            model.addAttribute("members", userDao.findAllOrderedByName());
             return "index";
         }
     }

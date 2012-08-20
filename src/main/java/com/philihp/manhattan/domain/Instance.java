@@ -35,7 +35,8 @@ public class Instance extends BasicEntity implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private int instanceId;
+	@Column
+	private int id;
 
 	@Column
 	private String name;
@@ -63,12 +64,12 @@ public class Instance extends BasicEntity implements Serializable {
 	public Instance() {
 	}
 
-	public int getInstanceId() {
-		return instanceId;
+	public int getId() {
+		return id;
 	}
 
-	public void setInstanceId(int instanceId) {
-		this.instanceId = instanceId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {

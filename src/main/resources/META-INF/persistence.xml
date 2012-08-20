@@ -5,13 +5,18 @@
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
    <persistence-unit name="manhattan-pu">
       <jta-data-source>java:jboss/datasources/ManhattanDS</jta-data-source>
+      <class>com.philihp.manhattan.domain.User</class>
+      <class>com.philihp.manhattan.domain.Config</class>
+      <class>com.philihp.manhattan.domain.Instance</class>
+      <class>com.philihp.manhattan.domain.Transition</class>
       <properties>
 
 		 <property name="jboss.entity.manager.factory.jndi.name" value="java:jboss/manhattan/persistence" />
 
          <!-- Properties for Hibernate -->
-         <property name="hibernate.hbm2ddl.auto" value="create-drop" />
-         <property name="hibernate.show_sql" value="false" />
+<!--          <property name="hibernate.dialect" value="com.philihp.manhattan.util.MySQL5BitBooleanDialect" /> -->
+         <property name="hibernate.hbm2ddl.auto" value="create" />
+         <property name="hibernate.show_sql" value="true" />
       </properties>
    </persistence-unit>
 </persistence>

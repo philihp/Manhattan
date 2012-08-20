@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
-	<persistence-unit name="testPU" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="test-pu" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>org.jboss.tools.example.springmvc.domain.Member</class>
+		<class>com.philihp.manhattan.domain.Config</class>
+		<class>com.philihp.manhattan.domain.Instance</class>
+		<class>com.philihp.manhattan.domain.Transition</class>
+		<class>com.philihp.manhattan.domain.User</class>
         <properties>
-	        <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+	        <property name="hibernate.hbm2ddl.auto" value="create_drop" />
         	<property name="hibernate.show_sql" value="true" />
         </properties>
 	</persistence-unit>

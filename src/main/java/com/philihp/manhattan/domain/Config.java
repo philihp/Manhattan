@@ -18,7 +18,7 @@ public class Config implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private int configId;
+	private int id;
 
 	@Column
 	private String name;
@@ -29,12 +29,12 @@ public class Config implements Serializable {
 	public Config() {
 	}
 
-	public int getConfigId() {
-		return configId;
+	public int getId() {
+		return id;
 	}
 
-	public void setConfigId(int configId) {
-		this.configId = configId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getValue() {

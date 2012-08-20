@@ -1,4 +1,4 @@
-package org.jboss.tools.example.springmvc.repo;
+package com.philihp.manhattan.repo;
 
 import java.util.List;
 
@@ -7,28 +7,29 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.jboss.tools.example.springmvc.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.philihp.manhattan.domain.User;
+
 @Repository
 @Transactional
-public class MemberDaoImpl implements MemberDao
+public class UserDaoImpl implements UserDao
 {
     @Autowired
     private EntityManager em;
 
-    public Member findById(Long id)
+    public User findById(int id)
     {
-        return em.find(Member.class, id);
+        return em.find(User.class, id);
     }
 
-    public Member findByEmail(String email)
+    public User findByEmail(String email)
     {
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Member> criteria = builder.createQuery(Member.class);
-        Root<Member> member = criteria.from(Member.class);
+        CriteriaQuery<User> criteria = builder.createQuery(User.class);
+        Root<User> member = criteria.from(User.class);
 
         /*
          * Swap criteria statements if you would like to try out type-safe criteria queries, a new
@@ -39,11 +40,11 @@ public class MemberDaoImpl implements MemberDao
         return em.createQuery(criteria).getSingleResult();
     }
 
-    public List<Member> findAllOrderedByName()
+    public List<User> findAllOrderedByName()
     {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
-        Root<Member> member = criteria.from(Member.class);
+        CriteriaQuery<User> criteria = cb.createQuery(User.class);
+        Root<User> member = criteria.from(User.class);
 
         /*
          * Swap criteria statements if you would like to try out type-safe criteria queries, a new
@@ -54,7 +55,7 @@ public class MemberDaoImpl implements MemberDao
         return em.createQuery(criteria).getResultList();
     }
 
-    public void register(Member member)
+    public void register(User member)
     {
         em.persist(member);
         return;

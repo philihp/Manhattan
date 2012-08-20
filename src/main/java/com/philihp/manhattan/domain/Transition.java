@@ -13,36 +13,31 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity(name = "Transition")
-@Table(name = "transition")
-@Access(FIELD)
+@Entity
 public class Transition extends BasicEntity implements Serializable {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "transition_id")
-	private int moveId;
+	@Column
+	private int id;
 
-	@Column(name = "command", nullable = false)
+	@Column
 	private String command;
 	
-	@Column(name = "long_move")
-	private boolean longMove;
-	
 	@ManyToOne(targetEntity = Instance.class)
-	@JoinColumn(name = "instance_id", referencedColumnName = "instance_id")
+	@JoinColumn(referencedColumnName = "id")
 	private Instance instance;
 	
 	@ManyToOne(targetEntity = User.class)
-	@JoinColumn(name = "user_id", referencedColumnName = "user_id")  
+	@JoinColumn(referencedColumnName = "id")  
 	private User maker;
 
-	public int getMoveId() {
-		return moveId;
+	public int getId() {
+		return id;
 	}
 
-	public void setMoveId(int moveId) {
-		this.moveId = moveId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getCommand() {
@@ -51,14 +46,6 @@ public class Transition extends BasicEntity implements Serializable {
 
 	public void setCommand(String command) {
 		this.command = command;
-	}
-
-	public boolean isLongMove() {
-		return longMove;
-	}
-
-	public void setLongMove(boolean longMove) {
-		this.longMove = longMove;
 	}
 
 	public Instance getInstance() {
