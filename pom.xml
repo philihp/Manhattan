@@ -295,7 +295,7 @@
     </dependencies>
 
     <build>
-        <finalName>springmvc</finalName>
+        <finalName>manhattan</finalName>
         <plugins>
             <!-- Force Java 7 -->
             <plugin>

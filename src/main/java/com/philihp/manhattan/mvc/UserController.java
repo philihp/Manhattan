@@ -23,20 +23,20 @@ public class UserController
     @RequestMapping(method=RequestMethod.GET)
     public String displaySortedMembers(Model model)
     {
-        model.addAttribute("newMember", new User());
-        model.addAttribute("members", userDao.findAllOrderedByName());
+        model.addAttribute("newUser", new User());
+        model.addAttribute("users", userDao.findAllOrderedByName());
         return "index";
     }
 
     @RequestMapping(method=RequestMethod.POST)
-    public String registerNewMember(@Valid @ModelAttribute("newMember") User newUser, BindingResult result, Model model)
+    public String registerNewMember(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, Model model)
     {
         if (!result.hasErrors()) {
             userDao.register(newUser);
             return "redirect:/";
         }
         else {
-            model.addAttribute("members", userDao.findAllOrderedByName());
+            model.addAttribute("users", userDao.findAllOrderedByName());
             return "index";
         }
     }
