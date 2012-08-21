@@ -312,6 +312,10 @@
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>${version.jboss.as.maven.plugin}</version>
+                <configuration>
+                    <username>${jboss.username}</username>
+                    <password>${jboss.password}</password>
+                </configuration>		
             </plugin>
             <!-- Surefire plugin before 2.9 version is buggy -->
             <plugin>
