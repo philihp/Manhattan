@@ -15,49 +15,61 @@ import com.philihp.manhattan.domain.User;
 
 @Repository
 @Transactional
-public class UserDaoImpl implements UserDao
-{
-    @Autowired
-    private EntityManager em;
+public class UserDaoImpl implements UserDao {
+	@Autowired
+	private EntityManager em;
 
-    public User findById(int id)
-    {
-        return em.find(User.class, id);
-    }
+	public User findById(int id) {
+		return em.find(User.class, id);
+	}
 
-    public User findByEmail(String email)
-    {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<User> criteria = builder.createQuery(User.class);
-        Root<User> member = criteria.from(User.class);
+	public User findByEmail(String email) {
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<User> criteria = builder.createQuery(User.class);
+		Root<User> member = criteria.from(User.class);
 
-        /*
-         * Swap criteria statements if you would like to try out type-safe criteria queries, a new
-         * feature in JPA 2.0 criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
-         */
+		/*
+		 * Swap criteria statements if you would like to try out type-safe
+		 * criteria queries, a new feature in JPA 2.0
+		 * criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
+		 */
 
-        criteria.select(member).where(builder.equal(member.get("email"), email));
-        return em.createQuery(criteria).getSingleResult();
-    }
+		criteria.select(member)
+				.where(builder.equal(member.get("email"), email));
+		return em.createQuery(criteria).getSingleResult();
+	}
 
-    public List<User> findAllOrderedByName()
-    {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<User> criteria = cb.createQuery(User.class);
-        Root<User> member = criteria.from(User.class);
+	public User findByTwitterId(Integer twitterId) {
+		if(twitterId == null) return null;
+		
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<User> criteria = builder.createQuery(User.class);
+		Root<User> member = criteria.from(User.class);
+		
+		criteria.select(member).where(builder.equal(member.get("twitterId"), twitterId));
+		
+		List<User> users = em.createQuery(criteria).getResultList();
+		if(users.size() == 0) return null;
+		else return users.get(0);
+	}
 
-        /*
-         * Swap criteria statements if you would like to try out type-safe criteria queries, a new
-         * feature in JPA 2.0 criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
-         */
+	public List<User> findAllOrderedByName() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<User> criteria = cb.createQuery(User.class);
+		Root<User> member = criteria.from(User.class);
 
-        criteria.select(member).orderBy(cb.asc(member.get("name")));
-        return em.createQuery(criteria).getResultList();
-    }
+		/*
+		 * Swap criteria statements if you would like to try out type-safe
+		 * criteria queries, a new feature in JPA 2.0
+		 * criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
+		 */
 
-    public void register(User member)
-    {
-        em.persist(member);
-        return;
-    }
+		criteria.select(member).orderBy(cb.asc(member.get("name")));
+		return em.createQuery(criteria).getResultList();
+	}
+
+	public void register(User member) {
+		em.persist(member);
+		return;
+	}
 }

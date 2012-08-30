@@ -9,19 +9,20 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.WebRequest;
 
 import com.philihp.manhattan.domain.User;
 import com.philihp.manhattan.repo.UserDao;
 
 @Controller
 @RequestMapping(value="/")
-public class UserController
+public class RootController
 {
     @Autowired
     private UserDao userDao;
 
     @RequestMapping(method=RequestMethod.GET)
-    public String displaySortedMembers(Model model)
+    public String displaySortedMembers(Model model, WebRequest request)
     {
         model.addAttribute("newUser", new User());
         model.addAttribute("users", userDao.findAllOrderedByName());

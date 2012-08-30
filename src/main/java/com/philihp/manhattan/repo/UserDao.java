@@ -10,6 +10,8 @@ public interface UserDao
 
     public User findByEmail(String email);
 
+	public User findByTwitterId(Integer twitterId);
+
     public List<User> findAllOrderedByName();
 
     public void register(User user);

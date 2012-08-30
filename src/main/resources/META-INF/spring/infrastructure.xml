@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       	 xmlns:jee="http://www.springframework.org/schema/jee"
-       	 xmlns:tx="http://www.springframework.org/schema/tx"
-         xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/tx
 		   http://www.springframework.org/schema/tx/spring-tx.xsd
@@ -12,16 +11,38 @@
 		   http://www.springframework.org/schema/jee/spring-jee.xsd">
 
 	<!-- JDNI name for EntityManagerFactory is defined in src/main/resources/META-INF/persistence.xml -->
-    <jee:jndi-lookup jndi-name="java:jboss/manhattan/persistence" id="entityManagerFactory"
-                     expected-type="javax.persistence.EntityManagerFactory" />
+	<jee:jndi-lookup jndi-name="java:jboss/manhattan/persistence"
+		id="entityManagerFactory" expected-type="javax.persistence.EntityManagerFactory" />
 
-	<bean id="entityManager" class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
-   		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+	<bean id="entityManager"
+		class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-                     
-	<jee:jndi-lookup jndi-name="java:jboss/datasources/ManhattanDS" id="dataSource" expected-type="javax.sql.DataSource"/>
 
-    <tx:jta-transaction-manager />
+	<jee:jndi-lookup jndi-name="java:jboss/datasources/ManhattanDS"
+		id="dataSource" expected-type="javax.sql.DataSource" />
 
+	<tx:jta-transaction-manager />
+
+	<bean id="facebookServiceConfig" class="com.philihp.manhattan.auth.OAuthServiceConfig">
+		<constructor-arg value="296216300476568" />
+		<constructor-arg value="80d7d5f2b995fc98cbc0ed146156a70c" />
+		<constructor-arg value="http://dev.philihp.com/manhattan/login-facebook" />
+		<constructor-arg value="org.scribe.builder.api.FacebookApi" />
+	</bean>
+	<bean id="facebookServiceProvider" class="com.philihp.manhattan.auth.OAuthServiceProvider">
+		<constructor-arg name="config" ref="facebookServiceConfig" />
+	</bean>
 	
+	<bean id="twitterServiceConfig" class="com.philihp.manhattan.auth.OAuthServiceConfig">
+		<constructor-arg value="fzRlXpLWREyOB1AlIwlWQ" />
+		<constructor-arg value="RpmorncN5EnhYtVT4KIZYptUpW2gVl6h1VSN1XyA" />
+		<constructor-arg value="http://dev.philihp.com/manhattan/login-twitter" />
+		<constructor-arg value="org.scribe.builder.api.TwitterApi" />
+	</bean>
+	<bean id="twitterServiceProvider" class="com.philihp.manhattan.auth.OAuthServiceProvider">
+		<constructor-arg name="config" ref="twitterServiceConfig" />
+	</bean>
+
+
 </beans>
