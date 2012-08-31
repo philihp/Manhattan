@@ -6,7 +6,6 @@ import static org.springframework.web.context.request.RequestAttributes.SCOPE_SE
 
 import java.util.Map;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,18 +27,29 @@ import com.philihp.manhattan.domain.User;
 import com.philihp.manhattan.repo.UserDao;
 import com.philihp.manhattan.util.Global;
 
+
 @Controller
-public class TwitterController {
+@RequestMapping("/login")
+public class LoginController {
 	
+	@Autowired
+	@Qualifier("facebookServiceProvider")
+	private OAuthServiceProvider facebookServiceProvider;
+
 	@Autowired
 	@Qualifier("twitterServiceProvider")
 	private OAuthServiceProvider twitterServiceProvider;
 
     @Autowired
     private UserDao userDao;
-	
-	@RequestMapping(value={"/login-twitter"}, method=RequestMethod.GET, params="!oauth_token")
-	public String login(WebRequest request) {
+
+    @RequestMapping("/register")
+    public String register(WebRequest request) {
+    	return "register";
+    }
+
+	@RequestMapping(value={"/twitter"}, params="!oauth_token")
+	public String twitterLogin(WebRequest request) {
 		Token accessToken = (Token)request.getAttribute(ATTR_OAUTH_ACCESS_TOKEN, SCOPE_SESSION);
 		Token requestToken = (Token)request.getAttribute(ATTR_OAUTH_REQUEST_TOKEN, SCOPE_SESSION);
 		if(accessToken == null || requestToken == null) {
@@ -50,12 +59,11 @@ public class TwitterController {
 			
 			return "redirect:" + service.getAuthorizationUrl(requestToken);
 		}
-		
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value={"/login-twitter"}, method=RequestMethod.GET, params="oauth_token")
-	public ModelAndView callback(
+	@RequestMapping(value={"/twitter"}, params="oauth_token")
+	public String twitterCallback(
 			@RequestParam(value="oauth_token", required=false) String oauthToken,
 			@RequestParam(value="oauth_verifier", required=false) String oauthVerifier,
 			WebRequest request) {
@@ -84,12 +92,39 @@ public class TwitterController {
 			throw new RuntimeException(e);
 		}
 
-		return new ModelAndView("redirect:/");
-	}
-	
-	@RequestMapping(value={"/logout-twitter"})
-	public String logout(WebRequest request) {
-		request.setAttribute(ATTR_OAUTH_ACCESS_TOKEN, null, SCOPE_SESSION);
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value={"/facebook"}, params="!code")
+	public String facebookLogin(WebRequest request) {
+		
+		Token accessToken = (Token)request.getAttribute(ATTR_OAUTH_ACCESS_TOKEN, SCOPE_SESSION);
+		if(accessToken == null) {
+			OAuthService service = facebookServiceProvider.getService();
+			request.setAttribute(ATTR_OAUTH_REQUEST_TOKEN, null, SCOPE_SESSION);
+			
+			return "redirect:" + service.getAuthorizationUrl(null);
+		}
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value={"/facebook"}, params="code")
+	public String facebookCallback(@RequestParam(value="code", required=false) String oauthVerifier, WebRequest request) {
+		OAuthService service = facebookServiceProvider.getService();
+		Token requestToken = (Token)request.getAttribute(ATTR_OAUTH_REQUEST_TOKEN, SCOPE_SESSION);
+		
+		Verifier verifier = new Verifier(oauthVerifier);
+		Token accessToken = service.getAccessToken(requestToken, verifier);
+		
+		request.setAttribute(ATTR_OAUTH_ACCESS_TOKEN, accessToken, SCOPE_SESSION);
+		
+		OAuthRequest oauthRequest = new OAuthRequest(Verb.GET, "https://graph.facebook.com/me");
+		service.signRequest(accessToken, oauthRequest);
+		Response oauthResponse = oauthRequest.send();
+		System.out.println(oauthResponse.getBody());
+		
+		return "redirect:/";
+	}
+	
 }
